@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 
-export default connect()((props) => {
-  const hidden = useState(state => state.app.hidden);
+import styled from 'styled-components';
 
-  return <div hidden={hidden}>
-    <Typography variant={'h1'}>
-      This is a boiler plate
-    </Typography>
-  </div>;
-});
+import GlobalStyle from '../../globalStyles';
+
+const H1 = styled('h1')`
+  font-family: Pricedown;
+  visibility: ${props => props.hidden};
+`;
+
+const App = ({ hidden }) => (
+  <div>
+    <H1 hidden={hidden}>Hello world</H1>
+    <GlobalStyle />
+  </div>
+);
+
+App.propTypes = {
+  hidden: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({ hidden: state.app.hidden });
+
+export default connect(mapStateToProps)(App);
